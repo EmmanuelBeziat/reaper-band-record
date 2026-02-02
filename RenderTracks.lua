@@ -26,10 +26,10 @@ end
 utils.SetSelectedTracksMute(0)
 
 -- 4. Get render path and create folder structure
-local audio_folder = reaper.GetProjectPath("")
-local project_root = utils.ParentPath(audio_folder) or audio_folder
+-- Use project directory (where the .rpp lives), not its parent, so output is <project>/Records/<date>
+local project_path = reaper.GetProjectPath("")
 local date_str = os.date("%Y-%m-%d %Hh%Mm")
-local render_folder = utils.JoinPath(project_root, "Records", date_str)
+local render_folder = utils.JoinPath(project_path, "Records", date_str)
 
 utils.CreateDirectory(render_folder)
 -- Apply render preset via cfillion script dynamically (no hardcoded action ID)
@@ -59,8 +59,10 @@ else
 	reaper.GetSetProjectInfo_String(0, "RENDER_FORMAT", "l3pm", true)
 end
 
--- Ensure output directory is our render folder (override preset if needed)
-reaper.GetSetProjectInfo_String(0, "RENDER_FILE", render_folder, true)
+-- Ensure output directory is our render folder (override preset if needed).
+-- Pass path relative to project so REAPER doesn't prepend project path again (which caused duplicated paths).
+local render_file_relative = "Records/" .. date_str
+reaper.GetSetProjectInfo_String(0, "RENDER_FILE", render_file_relative, true)
 
 -- Trigger automatic render using the most recent render settings
 reaper.Main_OnCommand(41824, 0)
