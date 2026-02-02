@@ -8,7 +8,7 @@
 local reaper = reaper
 
 -- Import shared utilities
-local utils = dofile(reaper.GetResourcePath() .. "/Scripts/Band Record/EB Record Band/utils/EB_Utils.lua")
+local utils = dofile(reaper.GetResourcePath() .. "/Scripts/EmmanuelBeziat/Band Record/utils/Utils.lua")
 
 -- 1. Check if Records track already exists
 local records_track = utils.FindTrack("Records")
