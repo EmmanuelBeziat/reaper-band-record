@@ -12,7 +12,7 @@
 local reaper = reaper
 
 -- Import shared utilities
-local utils = dofile(reaper.GetResourcePath() .. "/Scripts/EB Record Band/utils/EB_Utils.lua")
+local utils = dofile(reaper.GetResourcePath() .. "/Scripts/Record Band/EB Record Band/utils/EB_Utils.lua")
 
 -- 1-3. Deselect all, find Records track, select it + subtracks, unmute
 local records_track, records_idx = utils.SelectRecordsAndSubtracks()
