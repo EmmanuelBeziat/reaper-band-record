@@ -9,7 +9,7 @@
 local reaper = reaper
 
 -- Import shared utilities
-local utils = dofile(reaper.GetResourcePath() .. "/Scripts/Record Band/EB Record Band/utils/EB_Utils.lua")
+local utils = dofile(reaper.GetResourcePath() .. "/Scripts/Band Record/EB Record Band/utils/EB_Utils.lua")
 
 -- 1. Mute Records track
 local records_track, records_idx = utils.FindTrack("Records")
