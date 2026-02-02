@@ -8,7 +8,7 @@
 local reaper = reaper
 
 -- Import shared utilities
-local utils = dofile(reaper.GetResourcePath() .. "/Scripts/EmmanuelBeziat/Band Record/utils/Utils.lua")
+local utils = dofile(reaper.GetResourcePath() .. "/Scripts/Band Record/Band Record/utils/Utils.lua")
 
 -- 1-2. Deselect all, find Records track, select it + subtracks
 local records_track, records_idx = utils.SelectRecordsAndSubtracks()
