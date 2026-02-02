@@ -1,7 +1,41 @@
 -- EB_Utils.lua - Shared utilities for EB Record Band scripts
 -- Contains common functions for track selection and manipulation
+-- Path helpers use forward slashes (/) for cross-platform (Windows + macOS).
 
 local reaper = reaper
+
+-- Normalize path: use forward slashes so paths work on Windows and macOS
+function EB_NormalizePath(path)
+	if not path or path == "" then return path end
+	return (path:gsub("\\", "/"))
+end
+
+-- Get parent directory of a path (handles both / and \)
+function EB_ParentPath(path)
+	if not path or path == "" then return path end
+	local normalized = EB_NormalizePath(path)
+	return normalized:match("^(.+)/[^/]*$") or path
+end
+
+-- Join path segments with forward slashes (no double slashes)
+function EB_JoinPath(...)
+	local parts = { ... }
+	for i, p in ipairs(parts) do
+		parts[i] = EB_NormalizePath(tostring(p)):gsub("^/+", ""):gsub("/+$", "")
+	end
+	return table.concat(parts, "/")
+end
+
+-- Create directory (cross-platform: Windows, macOS, Linux)
+function EB_CreateDirectory(path)
+	local normalized = EB_NormalizePath(path)
+	local os_name = reaper.GetOS()
+	if os_name == "Win32" or os_name == "Win64" then
+		os.execute('mkdir "' .. normalized .. '" 2>nul')
+	else
+		os.execute('mkdir -p "' .. normalized .. '"')
+	end
+end
 
 -- Deselect all tracks
 function EB_DeselectAllTracks()
@@ -100,4 +134,8 @@ return {
 	SelectRecordsAndSubtracks = EB_SelectRecordsAndSubtracks,
 	SetSelectedTracksMute = EB_SetSelectedTracksMute,
 	SetSubtracksRecordArm = EB_SetSubtracksRecordArm,
+	NormalizePath = EB_NormalizePath,
+	ParentPath = EB_ParentPath,
+	JoinPath = EB_JoinPath,
+	CreateDirectory = EB_CreateDirectory,
 }

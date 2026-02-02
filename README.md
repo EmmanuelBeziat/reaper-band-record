@@ -10,9 +10,9 @@ The workflow follows four main steps:
 
 - Checks if a track named **Records** already exists (if so, does nothing).
 - Adds a spacer at the end of the project.
-- Loads the track template **Record Band** from `TrackTemplates/Live/Record Band.RTrackTemplate` and inserts the tracks.
+- Loads the track template **Record Band** from `TrackTemplates/Record Band.RTrackTemplate` and inserts the tracks.
 
-**Requirement:** Save your band template as `Record Band.RTrackTemplate` in REAPER’s `TrackTemplates/Live` folder (inside the Resource path).
+**Requirement:** Save your band template as `Record Band.RTrackTemplate` in REAPER’s `TrackTemplates` folder (inside the Resource path).
 
 ---
 

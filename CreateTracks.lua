@@ -24,7 +24,7 @@ local spacer_track = reaper.GetTrack(0, num_tracks)
 reaper.SetMediaTrackInfo_Value(spacer_track, "I_SPACER", 1)
 
 -- 3. Load template and insert tracks
-local template_path = reaper.GetResourcePath() .. "\\TrackTemplates\\Live\\Record Band.RTrackTemplate"
+local template_path = utils.JoinPath(reaper.GetResourcePath(), "TrackTemplates", "Record Band.RTrackTemplate")
 local template_file = io.open(template_path, "r")
 
 if not template_file then
