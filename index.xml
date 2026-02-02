@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <index version="1" name="Band Record">
-  <category name="Band Record">
+  <category name="EB Record Band">
     <reapack name="CreateTracks" type="script" desc="Create tracks for band recording.">
       <version name="1.0.0" author="Emmanuel Béziat" time="2025-02-02T00:00:00Z">
-        <source>https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/CreateTracks.lua</source>
+        <source main="main">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/CreateTracks.lua</source>
+        <source file="utils/EB_Utils.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/utils/EB_Utils.lua</source>
         <changelog><![CDATA[Initial Release]]></changelog>
       </version>
     </reapack>
     <reapack name="RecordTracks" type="script" desc="Record band tracks.">
       <version name="1.0.0" author="Emmanuel Béziat" time="2025-02-02T00:00:00Z">
-        <source>https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/RecordTracks.lua</source>
+        <source main="main">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/RecordTracks.lua</source>
+        <source file="utils/EB_Utils.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/utils/EB_Utils.lua</source>
         <changelog><![CDATA[Initial Release]]></changelog>
       </version>
     </reapack>
     <reapack name="RemoveRecordedTracks" type="script" desc="Remove recorded tracks.">
       <version name="1.0.0" author="Emmanuel Béziat" time="2025-02-02T00:00:00Z">
-        <source>https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/RemoveRecordedTracks.lua</source>
+        <source main="main">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/RemoveRecordedTracks.lua</source>
+        <source file="utils/EB_Utils.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/utils/EB_Utils.lua</source>
         <changelog><![CDATA[Initial Release]]></changelog>
       </version>
     </reapack>
     <reapack name="RenderTracks" type="script" desc="Render band tracks.">
       <version name="1.0.0" author="Emmanuel Béziat" time="2025-02-02T00:00:00Z">
-        <source>https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/RenderTracks.lua</source>
+        <source main="main">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/RenderTracks.lua</source>
+        <source file="utils/EB_Utils.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/utils/EB_Utils.lua</source>
         <changelog><![CDATA[Initial Release]]></changelog>
       </version>
     </reapack>
