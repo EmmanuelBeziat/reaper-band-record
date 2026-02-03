@@ -15,7 +15,7 @@ if records_track then
 	return
 end
 
--- 2. Insert a temporary track at the end, select it, then load template so REAPER inserts after it
+-- 2. Load template (which inserts at beginning), then select Records+subtracks and move to end
 local template_path = utils.JoinPath(reaper.GetResourcePath(), "TrackTemplates", "Record Band.RTrackTemplate")
 local template_file = io.open(template_path, "r")
 if not template_file then
@@ -24,18 +24,41 @@ if not template_file then
 end
 template_file:close()
 
-local count_before = reaper.CountTracks(0)
-reaper.InsertTrackAtIndex(count_before, false)
-local anchor_track = reaper.GetTrack(0, count_before)
-reaper.GetSetMediaTrackInfo_String(anchor_track, "P_NAME", "%%BAND_RECORD_ANCHOR%%", true)
-
-utils.DeselectAllTracks()
-reaper.SetTrackSelected(anchor_track, true)
 reaper.Main_openProject("noprompt:" .. template_path, false)
 
-local anchor_to_remove = utils.FindTrack("%%BAND_RECORD_ANCHOR%%")
-if anchor_to_remove then
-	reaper.DeleteTrack(anchor_to_remove)
+-- Select Records track and all its subtracks
+local records_track, records_idx, count_selected = utils.SelectRecordsAndSubtracks()
+if not records_track then
+	reaper.ShowMessageBox("Records track not found in template!", "Error", 0)
+	return
+end
+
+-- Collect selected tracks' state chunks (in order) and their indices
+local selected_tracks = {}
+local track_states = {}
+local track_indices = {}
+
+for i = 0, reaper.CountTracks(0) - 1 do
+	local track = reaper.GetTrack(0, i)
+	if reaper.IsTrackSelected(track) then
+		table.insert(selected_tracks, track)
+		table.insert(track_indices, i)
+		local _, state = reaper.GetTrackStateChunk(track, "", false)
+		table.insert(track_states, state)
+	end
+end
+
+-- Delete selected tracks from their current positions (delete in reverse order to preserve indices)
+for i = #selected_tracks, 1, -1 do
+	reaper.DeleteTrack(selected_tracks[i])
+end
+
+-- Re-add them at the end (preserves parent-child relationships since we maintain order)
+for _, state in ipairs(track_states) do
+	local idx = reaper.CountTracks(0)
+	reaper.InsertTrackAtIndex(idx, false)
+	local track = reaper.GetTrack(0, idx)
+	reaper.SetTrackStateChunk(track, state, false)
 end
 
 reaper.UpdateArrange()
