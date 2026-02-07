@@ -10,10 +10,13 @@ local script_path = (debug.getinfo(1, "S").source):gsub("^@", ""):gsub("\\", "/"
 local script_dir = script_path:match("^(.+)/[^/]*$") or "."
 local utils = dofile(script_dir .. "/utils/Utils.lua")
 
+local MSG_RECORDS_EXISTS = "Track 'Records' already exists. No action taken."
+local MSG_RECORDS_NOT_IN_TEMPLATE = "Records track not found in template!"
+
 -- 1. Check if Records track already exists
 local records_track = utils.FindTrack("Records")
 if records_track then
-	reaper.ShowMessageBox("Track 'Records' already exists. No action taken.", "Info", 0)
+	reaper.ShowMessageBox(MSG_RECORDS_EXISTS, "Info", 0)
 	return
 end
 
@@ -21,7 +24,7 @@ end
 local template_path = utils.JoinPath(reaper.GetResourcePath(), "TrackTemplates", "Record Band.RTrackTemplate")
 local template_file = io.open(template_path, "r")
 if not template_file then
-	reaper.ShowMessageBox("Template file not found at:\n" .. template_path, "Error", 0)
+	reaper.ShowMessageBox(("Template file not found at:\n%s"):format(template_path), "Error", 0)
 	return
 end
 template_file:close()
@@ -34,7 +37,7 @@ reaper.Main_openProject("noprompt:" .. template_path, false)
 local records_track, records_idx, count_selected = utils.SelectRecordsAndSubtracks()
 if not records_track then
 	reaper.Undo_EndBlock("Band Record: Create Records tracks from template", -1)
-	reaper.ShowMessageBox("Records track not found in template!", "Error", 0)
+	reaper.ShowMessageBox(MSG_RECORDS_NOT_IN_TEMPLATE, "Error", 0)
 	return
 end
 

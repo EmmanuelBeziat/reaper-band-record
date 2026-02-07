@@ -13,10 +13,13 @@ local script_path = (debug.getinfo(1, "S").source):gsub("^@", ""):gsub("\\", "/"
 local script_dir = script_path:match("^(.+)/[^/]*$") or "."
 local utils = dofile(script_dir .. "/utils/Utils.lua")
 
+local MSG_RECORDS_NOT_FOUND = "Track 'Records' not found!"
+local MSG_SUBTRACKS_NOT_EMPTY = "Warning: Records subtracks are not empty!\nPlease clear them before recording."
+
 -- 1. Mute Records track
 local records_track, records_idx = utils.FindTrack("Records")
 if not records_track then
-	reaper.ShowMessageBox("Track 'Records' not found!", "Error", 0)
+	reaper.ShowMessageBox(MSG_RECORDS_NOT_FOUND, "Error", 0)
 	return
 end
 
@@ -33,7 +36,7 @@ end
 -- 2.5. Check if subtracks of Records are empty
 if not utils.AreSubtracksEmpty(records_track, records_idx) then
 	reaper.Undo_EndBlock("Band Record: Prepare recording", -1)
-	reaper.ShowMessageBox("Warning: Records subtracks are not empty!\nPlease clear them before recording.", "Error", 0)
+	reaper.ShowMessageBox(MSG_SUBTRACKS_NOT_EMPTY, "Error", 0)
 	return
 end
 

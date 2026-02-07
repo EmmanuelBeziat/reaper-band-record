@@ -16,17 +16,25 @@ local script_path = (debug.getinfo(1, "S").source):gsub("^@", ""):gsub("\\", "/"
 local script_dir = script_path:match("^(.+)/[^/]*$") or "."
 local utils = dofile(script_dir .. "/utils/Utils.lua")
 
+local MSG_RECORDS_NOT_FOUND = "Track 'Records' not found!"
+local MSG_SUBTRACKS_EMPTY = "Records subtracks are empty.\nNothing to render."
+local MSG_PROJECT_UNSAVED = "Save the project before rendering so the output folder can be determined."
+local MSG_CFILLION_MISSING = "Optional script not found:\n\n"
+	.. "cfillion_Apply render preset.lua\n\n"
+	.. "Install it via ReaPack: ReaTeam Scripts → Rendering → \"cfillion_Apply render preset\".\n\n"
+	.. "Rendering will use built-in settings (stems, $track, MP3 320) instead of your \"StemsExport\" preset."
+
 -- 1-3. Deselect all, find Records track, select it + subtracks, unmute
 local records_track, records_idx = utils.SelectRecordsAndSubtracks()
 
 if not records_track then
-	reaper.ShowMessageBox("Track 'Records' not found!", "Error", 0)
+	reaper.ShowMessageBox(MSG_RECORDS_NOT_FOUND, "Error", 0)
 	return
 end
 
 -- Check if subtracks have content (only subtracks hold items, not the Records folder track)
 if utils.AreSubtracksEmpty(records_track, records_idx) then
-	reaper.ShowMessageBox("Records subtracks are empty.\nNothing to render.", "Render", 0)
+	reaper.ShowMessageBox(MSG_SUBTRACKS_EMPTY, "Render", 0)
 	return
 end
 
@@ -38,6 +46,11 @@ utils.SetSelectedTracksMute(0)
 -- 4. Get render path and create folder structure
 -- Use project directory (where the .rpp lives), not its parent, so output is <project>/Records/<date>
 local project_path = reaper.GetProjectPath("")
+if not project_path or project_path == "" then
+	reaper.ShowMessageBox(MSG_PROJECT_UNSAVED, "Render", 0)
+	return
+end
+
 local date_str = os.date("%Y-%m-%d %Hh%Mm")
 local render_folder = utils.JoinPath(project_path, "Records", date_str)
 
@@ -55,14 +68,7 @@ if f then
 	dofile(cfillion_script)
 	ApplyPresetByName = nil
 else
-	reaper.ShowMessageBox(
-		"Optional script not found:\n\n" ..
-		"cfillion_Apply render preset.lua\n\n" ..
-		"Install it via ReaPack: ReaTeam Scripts → Rendering → \"cfillion_Apply render preset\".\n\n" ..
-		"Rendering will use built-in settings (stems, $track, MP3 320) instead of your \"StemsExport\" preset.",
-		"cfillion script missing",
-		0
-	)
+	reaper.ShowMessageBox(MSG_CFILLION_MISSING, "cfillion script missing", 0)
 	-- Fallback: set required render flags directly (stems via master + pattern + MP3)
 	reaper.GetSetProjectInfo(0, "RENDER_SETTINGS", 130, true)
 	reaper.GetSetProjectInfo_String(0, "RENDER_PATTERN", "$track", true)
@@ -81,4 +87,4 @@ reaper.SetMediaTrackInfo_Value(records_track, "B_MUTE", 1)
 
 reaper.SetEditCurPos(0, false, false)
 reaper.Undo_EndBlock("Band Record: Render Records stems", -1)
-reaper.ShowMessageBox("Render completed. Files saved to:\n" .. render_folder, "Render Complete", 0)
+reaper.ShowMessageBox(("Render completed. Files saved to:\n%s"):format(render_folder), "Render Complete", 0)

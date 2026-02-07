@@ -12,11 +12,13 @@ local script_path = (debug.getinfo(1, "S").source):gsub("^@", ""):gsub("\\", "/"
 local script_dir = script_path:match("^(.+)/[^/]*$") or "."
 local utils = dofile(script_dir .. "/utils/Utils.lua")
 
+local MSG_RECORDS_NOT_FOUND = "Track 'Records' not found!"
+
 -- 1-2. Deselect all, find Records track, select it + subtracks
 local records_track, records_idx = utils.SelectRecordsAndSubtracks()
 
 if not records_track then
-	reaper.ShowMessageBox("Track 'Records' not found!", "Error", 0)
+	reaper.ShowMessageBox(MSG_RECORDS_NOT_FOUND, "Error", 0)
 	return
 end
 
