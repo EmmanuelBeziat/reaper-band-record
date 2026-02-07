@@ -58,4 +58,4 @@ Use this when you want to wipe a take and record again without removing the Reco
 
 ## Installation
 
-Install via [ReaPack](https://reapack.com/) using the Band Record repository, or copy the scripts (and `utils/EB_Utils.lua`) into your REAPER Scripts folder. Add the scripts to the Actions list and assign shortcuts or toolbar buttons as needed.
+Install via [ReaPack](https://reapack.com/) using the Band Record repository, or copy the scripts (and `utils/Utils.lua`) into your REAPER Scripts folder. Add the scripts to the Actions list and assign shortcuts or toolbar buttons as needed.

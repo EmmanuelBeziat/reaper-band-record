@@ -76,8 +76,6 @@ reaper.GetSetProjectInfo_String(0, "RENDER_FILE", render_file_relative, true)
 
 -- Trigger automatic render using the most recent render settings
 reaper.Main_OnCommand(41824, 0)
-reaper.SetMediaTrackInfo_Value(records_track, "B_MUTE", 1)
-
 -- Mute the Records track after rendering (always, regardless of initial state)
 reaper.SetMediaTrackInfo_Value(records_track, "B_MUTE", 1)
 
