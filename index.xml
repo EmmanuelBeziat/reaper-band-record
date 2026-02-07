@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1.4.0" name="EmmanuelBeziat">
+<index version="1.5.0" name="EmmanuelBeziat">
   <category name="Band Record">
     <reapack name="Band Record" type="script" desc="Set of ReaScripts for recording a band.">
-      <version name="1.4.0" author="Emmanuel Béziat" time="2025-02-02T00:00:00Z">
+      <version name="1.5.0" author="Emmanuel Béziat" time="2025-02-02T00:00:00Z">
         <source main="main" file="CreateTracks.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/CreateTracks.lua</source>
         <source main="main" file="RecordTracks.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/RecordTracks.lua</source>
         <source main="main" file="RemoveRecordedTracks.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/RemoveRecordedTracks.lua</source>

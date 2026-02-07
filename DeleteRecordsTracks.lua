@@ -32,21 +32,12 @@ end
 
 reaper.Undo_BeginBlock()
 
--- Select Records and all subtracks, then collect them and delete from last to first
+-- Select Records and all subtracks
 utils.SelectRecordsAndSubtracks()
 
-local tracks_to_delete = {}
-for i = 0, reaper.CountTracks(0) - 1 do
-	local track = reaper.GetTrack(0, i)
-	if reaper.IsTrackSelected(track) then
-		table.insert(tracks_to_delete, track)
-	end
-end
-
--- Delete from last to first so indices remain valid
-for i = #tracks_to_delete, 1, -1 do
-	reaper.DeleteTrack(tracks_to_delete[i])
-end
-
-reaper.UpdateArrange()
-reaper.Undo_EndBlock("Band Record: Delete Records tracks", -1)
+-- Defer the remove so REAPER has one main-loop cycle to apply the selection (otherwise 40005 may not see it)
+reaper.defer(function ()
+	reaper.Main_OnCommand(40005, 0)  -- Track: Remove tracks
+	reaper.UpdateArrange()
+	reaper.Undo_EndBlock("Band Record: Delete Records tracks", -1)
+end)
