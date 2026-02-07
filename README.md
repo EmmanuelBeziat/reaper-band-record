@@ -47,6 +47,16 @@ Use this when you want to wipe a take and record again without removing the Reco
 
 ---
 
+### 5. Delete Records group (optional) — **DeleteRecordsTracks**
+
+- Finds the **Records** track and its subtracks.
+- If any subtrack has media items, shows a warning that the content will be lost if not rendered and asks for confirmation (OK/Cancel).
+- Deletes the Records track and all its subtracks from the project.
+
+Use this when you want to remove the Records group entirely (e.g. at the end of a session).
+
+---
+
 ## Summary
 
 | Step | Script                 | Action                          |
@@ -55,6 +65,7 @@ Use this when you want to wipe a take and record again without removing the Reco
 | 2    | **RecordTracks**       | Arm, mute monitor, start record |
 | 3    | **RemoveRecordedTracks** | Clear items on Records (optional) |
 | 4    | **RenderTracks**       | Render stems to `Records\<date>` |
+| 5    | **DeleteRecordsTracks** | Delete Records track and subtracks (optional) |
 
 ## Installation
 

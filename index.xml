@@ -7,6 +7,7 @@
         <source main="main" file="RecordTracks.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/RecordTracks.lua</source>
         <source main="main" file="RemoveRecordedTracks.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/RemoveRecordedTracks.lua</source>
         <source main="main" file="RenderTracks.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/RenderTracks.lua</source>
+        <source main="main" file="DeleteRecordsTracks.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/DeleteRecordsTracks.lua</source>
         <source file="utils/Utils.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/utils/Utils.lua</source>
         <changelog><![CDATA[Initial Release]]></changelog>
       </version>
