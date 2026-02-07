@@ -22,6 +22,12 @@ if not records_track then
 	return
 end
 
+-- Check if subtracks have content (only subtracks hold items, not the Records folder track)
+if utils.AreSubtracksEmpty(records_track, records_idx) then
+	reaper.ShowMessageBox("Records subtracks are empty.\nNothing to render.", "Render", 0)
+	return
+end
+
 -- Unmute all selected tracks
 utils.SetSelectedTracksMute(0)
 
@@ -71,4 +77,5 @@ reaper.SetMediaTrackInfo_Value(records_track, "B_MUTE", 1)
 -- Mute the Records track after rendering (always, regardless of initial state)
 reaper.SetMediaTrackInfo_Value(records_track, "B_MUTE", 1)
 
+reaper.SetEditCurPos(0, false, false)
 reaper.ShowMessageBox("Render completed. Files saved to:\n" .. render_folder, "Render Complete", 0)

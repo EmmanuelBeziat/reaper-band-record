@@ -40,6 +40,8 @@ end
 -- Refresh the arrange view to immediately show the changes
 reaper.UpdateArrange()
 
+reaper.SetEditCurPos(0, false, false)
+
 -- 4. Deselect all tracks
 utils.DeselectAllTracks()
 

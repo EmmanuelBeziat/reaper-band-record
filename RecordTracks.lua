@@ -27,25 +27,7 @@ if track_track then
 end
 
 -- 2.5. Check if subtracks of Records are empty
-local records_depth = reaper.GetTrackDepth(records_track)
-local has_content = false
-for i = records_idx + 1, reaper.CountTracks(0) - 1 do
-	local subtrack = reaper.GetTrack(0, i)
-	local subtrack_depth = reaper.GetTrackDepth(subtrack)
-
-	-- Stop when we reach a track that's not a subtrack
-	if subtrack_depth <= records_depth then
-		break
-	end
-
-	-- Check if subtrack has any items
-	if reaper.CountTrackMediaItems(subtrack) > 0 then
-		has_content = true
-		break
-	end
-end
-
-if has_content then
+if not utils.AreSubtracksEmpty(records_track, records_idx) then
 	reaper.ShowMessageBox("Warning: Records subtracks are not empty!\nPlease clear them before recording.", "Error", 0)
 	return
 end

@@ -108,6 +108,27 @@ function EB_SetSelectedTracksMute(state)
 	end
 end
 
+-- Check if all subtracks of a parent track have no media items
+-- parent_track: parent track object
+-- parent_idx: index of the parent track
+-- Returns: true if all subtracks are empty, false if any has content
+function EB_AreSubtracksEmpty(parent_track, parent_idx)
+	local parent_depth = reaper.GetTrackDepth(parent_track)
+	for i = parent_idx + 1, reaper.CountTracks(0) - 1 do
+		local subtrack = reaper.GetTrack(0, i)
+		local subtrack_depth = reaper.GetTrackDepth(subtrack)
+
+		if subtrack_depth <= parent_depth then
+			break
+		end
+
+		if reaper.CountTrackMediaItems(subtrack) > 0 then
+			return false
+		end
+	end
+	return true
+end
+
 -- Arm or disarm all subtracks of a parent track for recording
 -- parent_track: parent track object
 -- parent_idx: index of the parent track
@@ -133,6 +154,7 @@ return {
 	SelectTrackAndSubtracks = EB_SelectTrackAndSubtracks,
 	SelectRecordsAndSubtracks = EB_SelectRecordsAndSubtracks,
 	SetSelectedTracksMute = EB_SetSelectedTracksMute,
+	AreSubtracksEmpty = EB_AreSubtracksEmpty,
 	SetSubtracksRecordArm = EB_SetSubtracksRecordArm,
 	NormalizePath = EB_NormalizePath,
 	ParentPath = EB_ParentPath,
