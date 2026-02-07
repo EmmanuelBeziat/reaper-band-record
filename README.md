@@ -9,8 +9,7 @@ The workflow follows four main steps:
 ### 1. Create the Records group — **CreateTracks**
 
 - Checks if a track named **Records** already exists (if so, does nothing).
-- Adds a spacer at the end of the project.
-- Loads the track template **Record Band** from `TrackTemplates/Record Band.RTrackTemplate` and inserts the tracks.
+- Loads the track template **Record Band** from `TrackTemplates/Record Band.RTrackTemplate` and inserts the tracks at the end of the track list.
 
 **Requirement:** Save your band template as `Record Band.RTrackTemplate` in REAPER’s `TrackTemplates` folder (inside the Resource path).
 

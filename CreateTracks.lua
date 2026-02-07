@@ -35,16 +35,14 @@ if not records_track then
 	return
 end
 
--- Collect selected tracks' state chunks (in order) and their indices
+-- Collect selected tracks' state chunks (in order)
 local selected_tracks = {}
 local track_states = {}
-local track_indices = {}
 
 for i = 0, reaper.CountTracks(0) - 1 do
 	local track = reaper.GetTrack(0, i)
 	if reaper.IsTrackSelected(track) then
 		table.insert(selected_tracks, track)
-		table.insert(track_indices, i)
 		local _, state = reaper.GetTrackStateChunk(track, "", false)
 		table.insert(track_states, state)
 	end
