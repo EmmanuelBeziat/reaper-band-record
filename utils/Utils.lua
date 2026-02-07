@@ -18,12 +18,18 @@ function EB_ParentPath(path)
 end
 
 -- Join path segments with forward slashes (no double slashes)
+-- Nil or empty parts are skipped so they don't produce "nil" in the path
 function EB_JoinPath(...)
-	local parts = { ... }
-	for i, p in ipairs(parts) do
-		parts[i] = EB_NormalizePath(tostring(p)):gsub("^/+", ""):gsub("/+$", "")
+	local result = {}
+	for _, p in ipairs({ ... }) do
+		if p ~= nil then
+			local seg = EB_NormalizePath(tostring(p)):gsub("^/+", ""):gsub("/+$", "")
+			if seg ~= "" then
+				table.insert(result, seg)
+			end
+		end
 	end
-	return table.concat(parts, "/")
+	return table.concat(result, "/")
 end
 
 -- Create directory (cross-platform: Windows, macOS, Linux)

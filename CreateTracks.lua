@@ -5,8 +5,10 @@
 
 local reaper = reaper
 
--- Import shared utilities
-local utils = dofile(reaper.GetResourcePath() .. "/Scripts/Band Record/Band Record/utils/Utils.lua")
+-- Import shared utilities (path relative to this script)
+local script_path = (debug.getinfo(1, "S").source):gsub("^@", ""):gsub("\\", "/")
+local script_dir = script_path:match("^(.+)/[^/]*$") or "."
+local utils = dofile(script_dir .. "/utils/Utils.lua")
 
 -- 1. Check if Records track already exists
 local records_track = utils.FindTrack("Records")
