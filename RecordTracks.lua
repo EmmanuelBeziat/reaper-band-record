@@ -15,12 +15,14 @@ local utils = dofile(script_dir .. "/utils/Utils.lua")
 
 -- 1. Mute Records track
 local records_track, records_idx = utils.FindTrack("Records")
-if records_track then
-	reaper.SetMediaTrackInfo_Value(records_track, "B_MUTE", 1)
-else
+if not records_track then
 	reaper.ShowMessageBox("Track 'Records' not found!", "Error", 0)
 	return
 end
+
+reaper.Undo_BeginBlock()
+
+reaper.SetMediaTrackInfo_Value(records_track, "B_MUTE", 1)
 
 -- 2. Mute Track track
 local track_track = utils.FindTrack("Track")
@@ -30,6 +32,7 @@ end
 
 -- 2.5. Check if subtracks of Records are empty
 if not utils.AreSubtracksEmpty(records_track, records_idx) then
+	reaper.Undo_EndBlock("Band Record: Prepare recording", -1)
 	reaper.ShowMessageBox("Warning: Records subtracks are not empty!\nPlease clear them before recording.", "Error", 0)
 	return
 end
@@ -41,4 +44,5 @@ utils.SetSubtracksRecordArm(records_track, records_idx, 1)
 reaper.SetEditCurPos(0, false, false)
 
 -- 5. Start recording
+reaper.Undo_EndBlock("Band Record: Prepare recording", -1)
 reaper.Main_OnCommand(1013, 0)  -- Transport: Record

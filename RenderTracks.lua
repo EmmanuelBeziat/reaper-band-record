@@ -30,6 +30,8 @@ if utils.AreSubtracksEmpty(records_track, records_idx) then
 	return
 end
 
+reaper.Undo_BeginBlock()
+
 -- Unmute all selected tracks
 utils.SetSelectedTracksMute(0)
 
@@ -80,4 +82,5 @@ reaper.SetMediaTrackInfo_Value(records_track, "B_MUTE", 1)
 reaper.SetMediaTrackInfo_Value(records_track, "B_MUTE", 1)
 
 reaper.SetEditCurPos(0, false, false)
+reaper.Undo_EndBlock("Band Record: Render Records stems", -1)
 reaper.ShowMessageBox("Render completed. Files saved to:\n" .. render_folder, "Render Complete", 0)

@@ -20,6 +20,8 @@ if not records_track then
 	return
 end
 
+reaper.Undo_BeginBlock()
+
 -- 3. Delete all items from selected tracks
 -- First, collect all items in selected tracks, then delete them
 local items_to_delete = {}
@@ -46,4 +48,6 @@ reaper.SetEditCurPos(0, false, false)
 
 -- 4. Deselect all tracks
 utils.DeselectAllTracks()
+
+reaper.Undo_EndBlock("Band Record: Remove recorded tracks", -1)
 

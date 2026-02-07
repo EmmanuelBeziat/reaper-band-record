@@ -26,11 +26,14 @@ if not template_file then
 end
 template_file:close()
 
+reaper.Undo_BeginBlock()
+
 reaper.Main_openProject("noprompt:" .. template_path, false)
 
 -- Select Records track and all its subtracks
 local records_track, records_idx, count_selected = utils.SelectRecordsAndSubtracks()
 if not records_track then
+	reaper.Undo_EndBlock("Band Record: Create Records tracks from template", -1)
 	reaper.ShowMessageBox("Records track not found in template!", "Error", 0)
 	return
 end
@@ -62,3 +65,5 @@ for _, state in ipairs(track_states) do
 end
 
 reaper.UpdateArrange()
+
+reaper.Undo_EndBlock("Band Record: Create Records tracks from template", -1)
