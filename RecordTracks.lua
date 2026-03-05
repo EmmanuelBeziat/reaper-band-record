@@ -1,10 +1,8 @@
--- RecordTracks.lua - Prepare and start recording on Records group
--- Workflow:
--- 1) Mute Records track
--- 2) Mute Track track
--- 3) Arm all subtracks of Records for recording
--- 4) Move cursor to project start
--- 5) Start recording
+-- @description Prepare and start recording on Records group
+-- @version 1.0.0
+-- @author Emmanuel Béziat
+-- @changelog
+--    # Initial commit
 
 local reaper = reaper
 

@@ -1,13 +1,8 @@
--- RenderTracks.lua - Render 'Records' group as MP3 320kbps stems
--- Workflow:
--- 1) Deselect all tracks, find track named 'Records' and select it + its children
--- 2) Unmute selected tracks
--- 3) Ensure output folder: <project root>/Records/<YYYY-MM-DD>
--- 4) Apply an existing render preset (created with cfillion_Apply render preset)
---    which contains the correct source (Selected tracks (stems)), pattern ($track)
---    and format (LAME MP3 320). If the preset action is missing, fallback to
---    setting the required RENDER_* values directly.
--- 5) Launch automatic render using the most recent render settings.
+-- @description Render 'Records' group as MP3 320kbps stems
+-- @version 1.0.0
+-- @author Emmanuel Béziat
+-- @changelog
+--    # Initial commit
 
 local reaper = reaper
 

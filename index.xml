@@ -2,7 +2,7 @@
 <index version="1" name="EmmanuelBeziat">
 	<category name="Various">
 		<reapack name="Band Record" type="script" desc="Set of actions for recording a band.">
-			<version name="1.5.2" author="Emmanuel Béziat" time="2026-03-05T00:00:00Z">
+			<version name="1.5.3" author="Emmanuel Béziat" time="2026-03-05T00:00:00Z">
 				<source main="main" file="CreateTracks.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/CreateTracks.lua</source>
 				<source main="main" file="RecordTracks.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/RecordTracks.lua</source>
 				<source main="main" file="RemoveRecordedTracks.lua">https://raw.githubusercontent.com/EmmanuelBeziat/reaper-band-record/main/RemoveRecordedTracks.lua</source>

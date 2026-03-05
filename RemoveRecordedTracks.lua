@@ -1,9 +1,8 @@
--- RemoveRecordedTracks.lua - Clear all content from 'Records' group and its subtracks
--- Workflow:
--- 1) Deselect all tracks
--- 2) Find track named 'Records' and select it + its children
--- 3) Delete all content (items) from selected tracks
--- 4) Deselect all tracks
+-- @description Clear all content from 'Records' group and its subtracks
+-- @version 1.0.0
+-- @author Emmanuel Béziat
+-- @changelog
+--    # Initial commit
 
 local reaper = reaper
 

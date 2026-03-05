@@ -1,7 +1,8 @@
--- CreateTracks.lua - Create Records track group from template
--- Workflow:
--- 1) Check if Records track already exists
--- 2) Load Record Band template and insert at the end of all tracks
+-- @description Create Records track group from template
+-- @version 1.0.0
+-- @author Emmanuel Béziat
+-- @changelog
+--    # Initial commit
 
 local reaper = reaper
 

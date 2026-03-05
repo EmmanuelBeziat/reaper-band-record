@@ -1,8 +1,8 @@
--- DeleteRecordsTracks.lua - Remove the Records track and all its subtracks
--- Workflow:
--- 1) Find track named 'Records' and its subtracks
--- 2) If subtracks have content, warn that it will be lost if not rendered and ask confirmation
--- 3) Delete Records track and all subtracks (from bottom up to preserve indices)
+-- @description Remove the Records track and all its subtracks
+-- @version 1.0.0
+-- @author Emmanuel Béziat
+-- @changelog
+--    # Initial commit
 
 local reaper = reaper
 
